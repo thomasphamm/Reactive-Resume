@@ -43,7 +43,7 @@ export const SectionDialog = <T extends SectionItem>({
   children,
 }: Props<T>) => {
   const { isOpen, mode, close, payload } = useDialog<T>(id);
-  const {open} = useDialog("open-AI")
+
   const setValue = useResumeStore((state) => state.setValue);
   const section = useResumeStore((state) => {
     if (!id) return null;
@@ -106,7 +106,6 @@ export const SectionDialog = <T extends SectionItem>({
     }
 
     close();
-    open("create");
   };
 
   const onReset = () => {

@@ -30,8 +30,6 @@ export const useDialogStore = create<DialogState & DialogActions>()((set) => ({
 }));
 
 export const useDialog = <T = unknown>(name: DialogName) => {
-  console.log(name);
-
   const dialog = useDialogStore((state) => {
     if (name.startsWith("custom.")) name = "custom";
     return state.dialog?.name === name ? state.dialog : null;
