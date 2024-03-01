@@ -29,6 +29,7 @@ const formSchema = projectSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const ProjectsDialog = () => {
+  let generateProjects = "Projects";
   const form = useForm<FormValues>({
     defaultValues: defaultProject,
     resolver: zodResolver(formSchema),
@@ -112,7 +113,7 @@ export const ProjectsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generateProjects}/>
                   )}
                 />
               </FormControl>

@@ -23,6 +23,7 @@ const formSchema = experienceSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const ExperienceDialog = () => {
+  let createExperience = "Experience";
   const form = useForm<FormValues>({
     defaultValues: defaultExperience,
     resolver: zodResolver(formSchema),
@@ -118,7 +119,7 @@ export const ExperienceDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={createExperience} />
                   )}
                 />
               </FormControl>

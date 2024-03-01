@@ -23,6 +23,7 @@ const formSchema = educationSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const EducationDialog = () => {
+  let createEducation = "Education";
   const form = useForm<FormValues>({
     defaultValues: defaultEducation,
     resolver: zodResolver(formSchema),
@@ -141,7 +142,7 @@ export const EducationDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={form.getValues()} onChange={editor.commands.setContent} />
+                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={createEducation} />
                   )}
                 />
               </FormControl>

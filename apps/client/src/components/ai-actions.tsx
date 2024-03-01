@@ -24,19 +24,23 @@ import { fixGrammar } from "../services/openai/fix-grammar";
 import { improveWriting } from "../services/openai/improve-writing";
 import { useOpenAiStore } from "../stores/openai";
 import { createSummary } from "../services/openai/createSummary";
+import { createEducation} from "../services/openai/generateEducation";
+import { createExperience } from "../services/openai/generateExperience";
+import { createCertifications } from "../services/openai/generateCertifications";
+import { createProjects } from "../services/openai/generateProjects";
+import { createPublications } from "../services/openai/generatePublications";
 
-type Action = "improve" | "fix" | "Generate" | "tone";
+type Action = "improve" | "fix" | "Generate" | "tone" | "Education" | "Experience" | "Certifications" | "Projects" | "Publications";
 type Mood = "casual" | "professional" | "confident" | "friendly";
 
 type Props = {
   value: any;
   onChange: (value: string) => void;
   className?: string;
+  select: any;
 };
 
-export const AiActions = ({ value, onChange, className }: Props) => {
-  console.log('huhugg',value);
-  
+export const AiActions = ({ value, onChange, className, select }: Props) => {
   const [loading, setLoading] = useState<Action | false>(false);
   const aiEnabled = useOpenAiStore((state) => !!state.apiKey);
 
@@ -51,6 +55,11 @@ export const AiActions = ({ value, onChange, className }: Props) => {
       if (action === "improve") result = await improveWriting(value);
       if (action === "fix") result = await fixGrammar(value);
       if (action === "Generate") result = await createSummary(value);
+      if (action === "Education") result = await createEducation(value);
+      if (action === "Experience") result = await createExperience(value);
+      if (action === "Certifications") result = await createCertifications(value);
+      if (action === "Projects") result = await createProjects(value);
+      if (action === "Publications") result = await createPublications(value);
       if (action === "tone" && mood) result = await changeTone(value, mood);
 
       onChange(result);
@@ -94,9 +103,9 @@ export const AiActions = ({ value, onChange, className }: Props) => {
         <span className="ml-2 text-xs">{t`Fix Spelling & Grammar`}</span>
       </Button>
 
-      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("Generate")}>
-        {loading === "improve" ? <CircleNotch className="animate-spin" /> : <PenNib />}
-        <span className="ml-2 text-xs">{t`Generate summary`}</span>
+      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick(select)}>
+        {loading === "Generate" ? <CircleNotch className="animate-spin" /> : <PenNib />}
+        <span className="ml-2 text-xs">{t`${select}`}</span>
       </Button>
 
       <DropdownMenu>

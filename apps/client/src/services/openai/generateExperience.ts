@@ -4,11 +4,11 @@ import { t } from "@lingui/macro";
 
 import { openai } from "./client";
 
-const PROMPT = `Generate me a summary, with the above information. Can you write a 200 words?
+const PROMPT = `Generate me a experience, with the above information. Can you write a 200 words?
 Text: """{input}"""
 Revised Text: """`;
 
-export const createSummary = async (data: any) => {
+export const createExperience = async (data: any) => {
   const text = Object.keys(data).map((key) => {
     if(key === 'id') return;
     return data[key];

@@ -13,6 +13,7 @@ import { AiActions } from "@/client/components/ai-actions";
 import { cn } from "@reactive-resume/utils";
 
 export const BasicsSection = () => {
+  let  generateSummary = "Generate";
   const setValue = useResumeStore((state) => state.setValue);
   const basics = useResumeStore((state: { resume: { data: { basics: any; }; }; }) => state.resume.data.basics);
   const section = useResumeStore(
@@ -110,10 +111,7 @@ export const BasicsSection = () => {
               content={section.content}
               onChange={(value) => setValue("sections.summary.content", value)}
               footer={(editor) => (
-                <AiActions value={basics} onChange={(value) => {
-                  setValue("sections.summary.content", value); 
-                  editor.commands.setContent(value)
-                }} />
+                <AiActions value={basics} onChange={(value) => {setValue("sections.summary.content", value); editor.commands.setContent(value)}} select={generateSummary}/>
               )}
             />
           </main>

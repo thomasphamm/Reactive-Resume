@@ -23,6 +23,7 @@ const formSchema = certificationSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const CertificationsDialog = () => {
+  let generateCertifications = "Certifications";
   const form = useForm<FormValues>({
     defaultValues: defaultCertification,
     resolver: zodResolver(formSchema),
@@ -99,7 +100,7 @@ export const CertificationsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generateCertifications}/>
                   )}
                 />
               </FormControl>

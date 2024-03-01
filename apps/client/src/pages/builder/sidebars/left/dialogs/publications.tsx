@@ -23,6 +23,7 @@ const formSchema = publicationSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const PublicationsDialog = () => {
+  let generatePublications = "Publications";
   const form = useForm<FormValues>({
     defaultValues: defaultPublication,
     resolver: zodResolver(formSchema),
@@ -99,7 +100,7 @@ export const PublicationsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generatePublications}/>
                   )}
                 />
               </FormControl>
