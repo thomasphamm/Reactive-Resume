@@ -29,18 +29,20 @@ import { createExperience } from "../services/openai/generateExperience";
 import { createCertifications } from "../services/openai/generateCertifications";
 import { createProjects } from "../services/openai/generateProjects";
 import { createPublications } from "../services/openai/generatePublications";
+import { createAwards } from "../services/openai/generateAwards";
 
-type Action = "improve" | "fix" | "Generate" | "tone" | "Education" | "Experience" | "Certifications" | "Projects" | "Publications";
+type Action = "improve" | "fix" | "Generate" | "tone" | "Education" | "Experience" | "Certifications" | "Projects" | "Publications" | "Awards";
 type Mood = "casual" | "professional" | "confident" | "friendly";
 
 type Props = {
+  valueText: any;
   value: any;
   onChange: (value: string) => void;
   className?: string;
   select: any;
 };
 
-export const AiActions = ({ value, onChange, className, select }: Props) => {
+export const AiActions = ({valueText, value, onChange, className, select }: Props) => {
   const [loading, setLoading] = useState<Action | false>(false);
   const aiEnabled = useOpenAiStore((state) => !!state.apiKey);
 
@@ -54,12 +56,13 @@ export const AiActions = ({ value, onChange, className, select }: Props) => {
 
       if (action === "improve") result = await improveWriting(value);
       if (action === "fix") result = await fixGrammar(value);
-      if (action === "Generate") result = await createSummary(value);
-      if (action === "Education") result = await createEducation(value);
-      if (action === "Experience") result = await createExperience(value);
-      if (action === "Certifications") result = await createCertifications(value);
-      if (action === "Projects") result = await createProjects(value);
-      if (action === "Publications") result = await createPublications(value);
+      if (action === "Generate") result = await createSummary(valueText);
+      if (action === "Education") result = await createEducation(valueText);
+      if (action === "Experience") result = await createExperience(valueText);
+      if (action === "Certifications") result = await createCertifications(valueText);
+      if (action === "Projects") result = await createProjects(valueText);
+      if (action === "Publications") result = await createPublications(valueText);
+      if (action === "Awards") result = await createAwards(valueText);
       if (action === "tone" && mood) result = await changeTone(value, mood);
 
       onChange(result);

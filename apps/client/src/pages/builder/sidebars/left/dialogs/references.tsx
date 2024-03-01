@@ -85,7 +85,7 @@ export const ReferencesDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                    <AiActions valueText={null} value={editor.getText()} onChange={editor.commands.setContent} select={null} />
                   )}
                 />
               </FormControl>

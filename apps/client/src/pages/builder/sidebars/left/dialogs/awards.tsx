@@ -23,14 +23,11 @@ const formSchema = awardSchema;
 type FormValues = z.infer<typeof formSchema>;
 
 export const AwardsDialog = () => {
+  let generateAwards = "Awards";
   const form = useForm<FormValues>({
     defaultValues: defaultAward,
     resolver: zodResolver(formSchema),
   });
-
-  console.log(form.getValues());
-  
-
   return (
     <SectionDialog<FormValues> id="awards" form={form} defaultValues={defaultAward}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -108,7 +105,7 @@ export const AwardsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={form.getValues()} onChange={editor.commands.setContent} />
+                    <AiActions valueText={form.getValues()} value={editor.getText()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generateAwards}/>
                   )}
                 />
               </FormControl>

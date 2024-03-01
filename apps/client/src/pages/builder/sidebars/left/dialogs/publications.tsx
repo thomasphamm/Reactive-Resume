@@ -100,7 +100,7 @@ export const PublicationsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generatePublications}/>
+                    <AiActions valueText={form.getValues()} value={editor.getText()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generatePublications}/>
                   )}
                 />
               </FormControl>

@@ -111,7 +111,7 @@ export const BasicsSection = () => {
               content={section.content}
               onChange={(value) => setValue("sections.summary.content", value)}
               footer={(editor) => (
-                <AiActions value={basics} onChange={(value) => {setValue("sections.summary.content", value); editor.commands.setContent(value)}} select={generateSummary}/>
+                <AiActions valueText={basics} value={editor.getText()} onChange={(value) => {setValue("sections.summary.content", value); editor.commands.setContent(value)}} select={generateSummary}/>
               )}
             />
           </main>

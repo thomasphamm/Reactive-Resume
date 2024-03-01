@@ -100,7 +100,7 @@ export const CertificationsDialog = () => {
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
                   footer={(editor) => (
-                    <AiActions value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generateCertifications}/>
+                    <AiActions valueText={form.getValues()} value={form.getValues()} onChange={(value) => {field.onChange(value); editor.commands.setContent(value)}} select={generateCertifications}/>
                   )}
                 />
               </FormControl>
