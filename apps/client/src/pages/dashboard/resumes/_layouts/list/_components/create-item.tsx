@@ -8,7 +8,7 @@ import { useDialog } from "@/client/stores/dialog";
 import { BaseListItem } from "./base-item";
 
 export const CreateResumeListItem = () => {
-  const { open } = useDialog<ResumeDto>("resume");
+  const { open } = useDialog<ResumeDto>("step-by-step");
 
   return (
     <BaseListItem

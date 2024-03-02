@@ -30,13 +30,17 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useCreateResume } from "@/client/services/resume";
+import { printResume, useCreateResume } from "@/client/services/resume";
 import { useDialog } from "@/client/stores/dialog";
 import { BasicsSection } from "@/client/pages/builder/sidebars/left/sections/basics";
 import { useResumeStore } from "@/client/stores/resume";
 import { SectionBase } from "@/client/pages/builder/sidebars/left/sections/shared/section-base";
 import { SummarySection } from "@/client/pages/builder/sidebars/left/sections/summary";
 import { useImportResume } from "@/client/services/resume/import";
+import { SectionIcon } from "@/client/pages/builder/sidebars/left/sections/shared/section-icon";
+import { TemplateSection } from "@/client/pages/builder/sidebars/right/sections/template";
+import { BaseCard } from "../_layouts/grid/_components/base-card";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = createResumeSchema.extend({ id: idSchema.optional() });
 
@@ -52,6 +56,7 @@ export const OpenAIDialog = () => {
   const [step, setStep] = useState<number>(1)
   const { createResume, loading: createLoading } = useCreateResume();
   const { importResume: duplicateResume, loading: duplicateLoading } = useImportResume();
+  const navigate = useNavigate();
 
   const loading = createLoading
 
@@ -98,15 +103,28 @@ export const OpenAIDialog = () => {
     form.setValue("slug", kebabCase(name));
   };
 
+  const onPdfExport = async () => {
+    const { resume } = useResumeStore.getState();
+    const { url } = await printResume({ id: resume.id });
+
+    const openInNewTab = (url: string) => {
+      const win = window.open(url, "_blank");
+      if (win) win.focus();
+    };
+
+    openInNewTab(url);
+  };
+  
   const handleSetStep = (val: number) => {
-    if (step == 11) {
-      close();
-      return
-    }
     setStep(step + val)
   }
+  const onOpen = () => {
+    navigate(`/builder/${resume.id}`);
+    close();
+  };
+
   const viewForm = useMemo(() => {
-    return <div className="flex-1">
+    return <div className={step!=13? 'flex-1':'flex-1 flex items-center w-full justify-center'} >
       {step == 1 &&
         <div>
           <FormField
@@ -211,6 +229,22 @@ export const OpenAIDialog = () => {
           <span className="ml-2">{t`Add a new section`}</span>
         </Button>
       }
+      {step == 12 &&
+        <div className="h-[800px] overflow-x-auto">
+          <TemplateSection />
+        </div>
+      }
+      {step == 13 &&
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <BaseCard className="flex-1" onClick={onPdfExport}>
+            <h4>Download the CV</h4>
+          </BaseCard>
+          <BaseCard className="flex-1 p-3" onClick={onOpen}>
+            <h4>Edit the CV in Expert Mode.</h4>
+          </BaseCard>
+        </div>
+
+      }
     </div>
   }
     , [step, customSections])
@@ -233,8 +267,39 @@ export const OpenAIDialog = () => {
                 {step == 1 && t`Start building your resume by giving it a name.`}
               </DialogDescription>
             </DialogHeader>
-            {viewForm}
-            <DialogFooter>
+            <div className="flex gap-x-2 flex-1">
+              {step >= 2 && step != 13 &&
+                <div className="flex flex-col items-center gap-y-2">
+                  < SectionIcon
+                    id="basics"
+                    onClick={() => setStep(2)}
+                    name={t({
+                      message: "Basics",
+                      context:
+                        "The basics section of a resume consists of User's Picture, Full Name, Location etc.",
+                    })}
+                  />
+                  <SectionIcon id="summary" onClick={() => setStep(2)} />
+                  <SectionIcon id="profiles" onClick={() => setStep(3)} />
+                  <SectionIcon id="experience" onClick={() => setStep(4)} />
+                  <SectionIcon id="education" onClick={() => setStep(5)} />
+                  <SectionIcon id="skills" onClick={() => setStep(6)} />
+                  <SectionIcon id="languages" onClick={() => setStep(7)} />
+                  <SectionIcon id="awards" onClick={() => setStep(8)} />
+                  <SectionIcon id="projects" onClick={() => setStep(9)} />
+                  <SectionIcon id="certifications" onClick={() => setStep(10)} />
+                  <SectionIcon
+                    id="custom"
+                    variant="outline"
+                    name={t`Add a new section`}
+                    icon={<Plus size={14} />}
+                    onClick={() => setStep(11)}
+                  />
+                </div>
+              }
+              {viewForm}
+            </div>
+            {step!= 13 && <DialogFooter>
               <div className="flex items-center gap-2">
                 {step == 1 && <Button
                   type="submit"
@@ -255,7 +320,7 @@ export const OpenAIDialog = () => {
                   onClick={() => handleSetStep(1)}
                   className={cn(isCreate && "rounded-r-none")}
                 >
-                  {t`Skip`}
+                  {t`Next`}
                 </Button>}
                 {isCreate && step == 1 && (
                   <DropdownMenu>
@@ -273,7 +338,7 @@ export const OpenAIDialog = () => {
                   </DropdownMenu>
                 )}
               </div>
-            </DialogFooter>
+            </DialogFooter>}
           </form>
         </Form>
       </DialogContent>
