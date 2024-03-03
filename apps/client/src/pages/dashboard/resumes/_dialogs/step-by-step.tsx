@@ -27,7 +27,7 @@ export const StepByStep = () => {
     }
     return <Dialog open={isOpen} onOpenChange={close} >
         <DialogContent className="">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-2">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
                 <BaseCard className="flex-1" onClick={() => resumeOpen("create")}>
                     <Plus size={64} weight="thin" />
                     <h4>Create a new resume</h4>

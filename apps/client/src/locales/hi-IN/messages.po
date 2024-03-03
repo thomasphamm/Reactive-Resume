@@ -56,12 +56,12 @@ msgstr "<0>दो-कारक प्रमाणीकरण सक्षम �
 
 #: apps/client/src/pages/home/page.tsx:24
 #: apps/client/src/pages/home/sections/hero/index.tsx:42
-msgid "A free and open-source resume builder"
+msgid "Utilize AI for Flawless and Free Europass Resumes"
 msgstr "एक मुफ़्त और ओपन-सोर्स रेज़्युमे बिल्डर"
 
 #: apps/client/src/pages/home/components/footer.tsx:20
 #: apps/client/src/pages/home/sections/hero/index.tsx:47
-msgid "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
+msgid "Say goodbye to the hassle of manual formatting and content structuring. With cveuropass.eu, you can create polished resumes in minutes, giving you more time to focus on your job search."
 msgstr "एक मुफ़्त और ओपन-सोर्स रेज़्यूमे बिल्डर जो आपके रेज़्यूमे को बनाने, अपडेट करने और साझा करने की प्रक्रिया को सरल बनाता है।"
 
 #: apps/client/src/pages/builder/_components/toolbar.tsx:53
@@ -1626,7 +1626,7 @@ msgid "Website"
 msgstr "वेबसाइट"
 
 #: apps/client/src/pages/home/sections/hero/index.tsx:34
-msgid "What's new in the latest version"
+msgid "Here we have to change the link with this one:"
 msgstr "नवीनतम संस्करण में नया क्या है"
 
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:154

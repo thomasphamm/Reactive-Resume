@@ -56,12 +56,12 @@ msgstr "<0>A autenticação de dois fatores está ativada.</0> Ser-lhe-á pedido
 
 #: apps/client/src/pages/home/page.tsx:24
 #: apps/client/src/pages/home/sections/hero/index.tsx:42
-msgid "A free and open-source resume builder"
+msgid "Utilize AI for Flawless and Free Europass Resumes"
 msgstr "Um criador de currículos gratuito e de código aberto"
 
 #: apps/client/src/pages/home/components/footer.tsx:20
 #: apps/client/src/pages/home/sections/hero/index.tsx:47
-msgid "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
+msgid "Say goodbye to the hassle of manual formatting and content structuring. With cveuropass.eu, you can create polished resumes in minutes, giving you more time to focus on your job search."
 msgstr "Um criador de currículos gratuito e de código aberto que simplifica o processo de criação, atualização e de partilha do seu currículo."
 
 #: apps/client/src/pages/builder/_components/toolbar.tsx:53
@@ -1626,7 +1626,7 @@ msgid "Website"
 msgstr "Site"
 
 #: apps/client/src/pages/home/sections/hero/index.tsx:34
-msgid "What's new in the latest version"
+msgid "Here we have to change the link with this one:"
 msgstr "O que há de novo na versão mais recente"
 
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:154

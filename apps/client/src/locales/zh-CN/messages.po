@@ -56,12 +56,12 @@ msgstr "<0>已启用双重身份验证。</0>您在每次登录时都需要输�
 
 #: apps/client/src/pages/home/page.tsx:24
 #: apps/client/src/pages/home/sections/hero/index.tsx:42
-msgid "A free and open-source resume builder"
+msgid "Utilize AI for Flawless and Free Europass Resumes"
 msgstr "免费开源的简历生成器"
 
 #: apps/client/src/pages/home/components/footer.tsx:20
 #: apps/client/src/pages/home/sections/hero/index.tsx:47
-msgid "A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume."
+msgid "Say goodbye to the hassle of manual formatting and content structuring. With cveuropass.eu, you can create polished resumes in minutes, giving you more time to focus on your job search."
 msgstr "一款免费开源的简历生成器，可简化创建、更新和共享简历的过程。"
 
 #: apps/client/src/pages/builder/_components/toolbar.tsx:53
@@ -1626,7 +1626,7 @@ msgid "Website"
 msgstr "网站"
 
 #: apps/client/src/pages/home/sections/hero/index.tsx:34
-msgid "What's new in the latest version"
+msgid "Here we have to change the link with this one:"
 msgstr "最新版本的新功能"
 
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:154

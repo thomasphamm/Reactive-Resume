@@ -279,7 +279,6 @@ export const OpenAIDialog = () => {
                         "The basics section of a resume consists of User's Picture, Full Name, Location etc.",
                     })}
                   />
-                  <SectionIcon id="summary" onClick={() => setStep(2)} />
                   <SectionIcon id="profiles" onClick={() => setStep(3)} />
                   <SectionIcon id="experience" onClick={() => setStep(4)} />
                   <SectionIcon id="education" onClick={() => setStep(5)} />

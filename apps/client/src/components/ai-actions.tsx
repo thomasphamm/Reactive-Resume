@@ -108,7 +108,7 @@ export const AiActions = ({valueText, value, onChange, className, select }: Prop
 
       <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick(select)}>
         {loading === "Generate" ? <CircleNotch className="animate-spin" /> : <PenNib />}
-        <span className="ml-2 text-xs">{t`${select}`}</span>
+        <span className="ml-2 text-xs">{t`Generate a description with AI.`}</span>
       </Button>
 
       <DropdownMenu>
