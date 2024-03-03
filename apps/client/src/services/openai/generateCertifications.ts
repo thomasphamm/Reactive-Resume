@@ -4,19 +4,13 @@ import { t } from "@lingui/macro";
 
 import { openai } from "./client";
 
-const PROMPT = `Generate me a Certifications, with the above information. Can you write a 200 words?
-Text: """{input}"""
-Revised Text: """`;
-
 export const createCertifications = async (data: any) => {
   const text = Object.keys(data).map((key) => {
     if(key === 'id') return;
     return data[key];
   }).join(', ')
-  const prompt = PROMPT.replace("{input}", text);
-  console.log(prompt);
-  
-
+  const lg = localStorage.getItem('locale');
+  const prompt = `Generate me a Certifications, with the above information ${text}. Can you write a 200 words, Language:${lg ? lg : 'English'}?`;
   const result = await openai().chat.completions.create({
     messages: [{ role: "user", content: prompt }],
     model: "gpt-3.5-turbo",

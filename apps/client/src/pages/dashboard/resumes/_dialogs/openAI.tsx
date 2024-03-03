@@ -105,7 +105,12 @@ export const OpenAIDialog = () => {
 
   const onPdfExport = async () => {
     const { resume } = useResumeStore.getState();
+    console.log(resume);
+    
     const { url } = await printResume({ id: resume.id });
+
+    console.log(url);
+    
 
     const openInNewTab = (url: string) => {
       const win = window.open(url, "_blank");
@@ -321,21 +326,6 @@ export const OpenAIDialog = () => {
                 >
                   {t`Next`}
                 </Button>}
-                {isCreate && step == 1 && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button type="button" size="icon" className="rounded-l-none border-l">
-                        <CaretDown />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent side="right" align="center">
-                      <DropdownMenuItem onClick={onCreateSample}>
-                        <Flask className="mr-2" />
-                        {t`Create Sample Resume`}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
               </div>
             </DialogFooter>}
           </form>

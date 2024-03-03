@@ -106,7 +106,9 @@ export const SectionDialog = <T extends SectionItem>({
     }
 
     close();
-    open("create");
+    if( window.location.pathname=='/dashboard/resumes' ) {
+      open("create");
+    }
   };
 
   const onReset = () => {

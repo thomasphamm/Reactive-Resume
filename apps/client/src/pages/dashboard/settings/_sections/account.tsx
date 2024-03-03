@@ -85,6 +85,8 @@ export const AccountSettings = () => {
       const file = event.target.files[0];
       const response = await uploadImage(file);
       const url = response.data;
+      console.log(url);
+      
 
       await updateUser({ picture: url });
     }

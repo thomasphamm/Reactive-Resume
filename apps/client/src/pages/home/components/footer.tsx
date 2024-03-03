@@ -1,7 +1,5 @@
 import { t } from "@lingui/macro";
 import { Separator } from "@reactive-resume/ui";
-
-import { Copyright } from "@/client/components/copyright";
 import { LocaleSwitch } from "@/client/components/locale-switch";
 import { Logo } from "@/client/components/logo";
 import { ThemeSwitch } from "@/client/components/theme-switch";
@@ -19,8 +17,6 @@ export const Footer = () => (
         <p className="prose prose-sm prose-zinc leading-relaxed opacity-60 dark:prose-invert">
           {t`A free and open-source resume builder that simplifies the process of creating, updating, and sharing your resume.`}
         </p>
-
-        <Copyright className="mt-6" />
       </div>
 
       <div className="relative col-start-4 flex flex-col items-end justify-end">

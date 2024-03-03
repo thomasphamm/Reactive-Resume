@@ -9,6 +9,7 @@ type Props = {
 
 export const UserAvatar = ({ size = 36, className }: Props) => {
   const { user } = useUser();
+console.log(user);
 
   if (!user) return null;
 

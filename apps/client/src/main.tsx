@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
 import { router } from "./router";
+import { Helmet } from "react-helmet-async";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 

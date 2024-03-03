@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t, Trans } from "@lingui/macro";
-import { LockSimple, LockSimpleOpen, TrashSimple } from "@phosphor-icons/react";
+// import { LockSimple, LockSimpleOpen, TrashSimple } from "@phosphor-icons/react";
 import {
   Alert,
   Button,
@@ -29,22 +29,22 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export const OpenAISettings = () => {
-  const { apiKey, setApiKey } = useOpenAiStore();
-  const isEnabled = !!apiKey;
+  // const { apiKey, setApiKey } = useOpenAiStore();
+  // const isEnabled = !!apiKey;
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { apiKey: apiKey ?? "" },
-  });
+  // const form = useForm<FormValues>({
+  //   resolver: zodResolver(formSchema),
+  //   defaultValues: { apiKey: apiKey ?? "" },
+  // });
 
-  const onSubmit = async ({ apiKey }: FormValues) => {
-    setApiKey(apiKey);
-  };
+  // const onSubmit = async ({ apiKey }: FormValues) => {
+  //   setApiKey(apiKey);
+  // };
 
-  const onRemove = () => {
-    setApiKey(null);
-    form.reset({ apiKey: "" });
-  };
+  // const onRemove = () => {
+  //   setApiKey(null);
+  //   form.reset({ apiKey: "" });
+  // };
 
   return (
     <div className="space-y-6">
@@ -73,7 +73,7 @@ export const OpenAISettings = () => {
         </p>
       </div>
 
-      <Form {...form}>
+      {/* <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 sm:grid-cols-2">
           <FormField
             name="apiKey"
@@ -109,7 +109,7 @@ export const OpenAISettings = () => {
             )}
           </div>
         </form>
-      </Form>
+      </Form> */}
 
       <div className="prose prose-sm prose-zinc max-w-full dark:prose-invert">
         <p>

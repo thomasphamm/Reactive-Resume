@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface OpenAIStore {
-  apiKey: string | null;
-  setApiKey: (apiKey: string | null) => void;
+  apiKey: any | null;
+  setApiKey: (apiKey: any | null) => void;
 }
 
 export const useOpenAiStore = create<OpenAIStore>()(

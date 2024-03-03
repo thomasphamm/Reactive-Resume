@@ -26,14 +26,19 @@ export const PictureSection = () => {
 
   const setValue = useResumeStore((state) => state.setValue);
   const picture = useResumeStore((state) => state.resume.data.basics.picture);
+console.log(picture);
 
   const isValidUrl = useMemo(() => z.string().url().safeParse(picture.url).success, [picture.url]);
+console.log(isValidUrl);
 
   const onSelectImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       const response = await uploadImage(file);
       const url = response.data;
+
+      console.log(url);
+      
 
       setValue("basics.picture.url", url);
     }

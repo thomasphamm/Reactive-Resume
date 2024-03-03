@@ -4,18 +4,12 @@ import { t } from "@lingui/macro";
 
 import { openai } from "./client";
 
-const PROMPT = `Generate me a summary, with the above information. Can you write a 200 words?
-Text: """{input}"""
-Revised Text: """`;
-
 export const createSummary = async (data: any) => {
   const text = Object.keys(data).map((key) => {
-    if(key === 'id') return;
-    return data[key];
+    if(key === 'headline')  return data[key];
   }).join(', ')
-  const prompt = PROMPT.replace("{input}", text);
-  console.log(prompt);
-  
+  const lg = localStorage.getItem('locale');
+  const prompt = `I am applying for a Job, SEO ${text}, write me professional Summary for CV, Language:${lg ? lg : 'English'}`;
 
   const result = await openai().chat.completions.create({
     messages: [{ role: "user", content: prompt }],

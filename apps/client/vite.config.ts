@@ -4,6 +4,7 @@ import { lingui } from "@lingui/vite-plugin";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig, searchForWorkspaceRoot, splitVendorChunkPlugin } from "vite";
+import envCompatible from 'vite-plugin-env-compatible'
 
 export default defineConfig({
   cacheDir: "../../node_modules/.vite/client",
@@ -29,8 +30,9 @@ export default defineConfig({
       },
     },
   },
-
+  envPrefix: "REACT_APP_",
   plugins: [
+    envCompatible(),
     react({
       plugins: [["@lingui/swc-plugin", {}]],
     }),

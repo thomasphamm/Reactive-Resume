@@ -21,7 +21,7 @@ import { useState } from "react";
 import { toast } from "../hooks/use-toast";
 import { changeTone } from "../services/openai/change-tone";
 import { fixGrammar } from "../services/openai/fix-grammar";
-import { improveWriting } from "../services/openai/improve-writing";
+// import { improveWriting } from "../services/openai/improve-writing";
 import { useOpenAiStore } from "../stores/openai";
 import { createSummary } from "../services/openai/createSummary";
 import { createEducation} from "../services/openai/generateEducation";
@@ -31,7 +31,7 @@ import { createProjects } from "../services/openai/generateProjects";
 import { createPublications } from "../services/openai/generatePublications";
 import { createAwards } from "../services/openai/generateAwards";
 
-type Action = "improve" | "fix" | "Generate" | "tone" | "Education" | "Experience" | "Certifications" | "Projects" | "Publications" | "Awards";
+type Action = "fix" | "Generate" | "tone" | "Education" | "Experience" | "Certifications" | "Projects" | "Publications" | "Awards";
 type Mood = "casual" | "professional" | "confident" | "friendly";
 
 type Props = {
@@ -54,7 +54,7 @@ export const AiActions = ({valueText, value, onChange, className, select }: Prop
 
       let result = value;
 
-      if (action === "improve") result = await improveWriting(value);
+      // if (action === "improve") result = await improveWriting(value);
       if (action === "fix") result = await fixGrammar(value);
       if (action === "Generate") result = await createSummary(valueText);
       if (action === "Education") result = await createEducation(valueText);
@@ -96,10 +96,10 @@ export const AiActions = ({valueText, value, onChange, className, select }: Prop
         </Badge>
       </div>
 
-      <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("improve")}>
+      {/* <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("improve")}>
         {loading === "improve" ? <CircleNotch className="animate-spin" /> : <PenNib />}
         <span className="ml-2 text-xs">{t`Improve Writing`}</span>
-      </Button>
+      </Button> */}
 
       <Button size="sm" variant="outline" disabled={!!loading} onClick={() => onClick("fix")}>
         {loading === "fix" ? <CircleNotch className="animate-spin" /> : <Exam />}

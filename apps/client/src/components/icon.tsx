@@ -6,17 +6,17 @@ type Props = {
   className?: string;
 };
 
-export const Icon = ({ size = 32, className }: Props) => {
+export const Icon = ({ size = 64, className }: Props) => {
   const { isDarkMode } = useTheme();
 
   let src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
   switch (isDarkMode) {
     case false:
-      src = "/icon/dark.svg";
+      src = "/icon/dark.png";
       break;
     case true:
-      src = "/icon/light.svg";
+      src = "/icon/light.png";
       break;
   }
 
