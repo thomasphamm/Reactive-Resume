@@ -1,0 +1,28 @@
+.sidebar {
+  .title-name {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 2px;
+      background-color: #5C6168;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+.main {
+  .title-name {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background-color: #5C6168;
+      bottom: 0;
+      left: -32px;
+    }
+  }
+}

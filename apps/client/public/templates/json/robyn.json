@@ -11,7 +11,7 @@
       "url": "https://i.imgur.com/HgwyOuJ.jpg",
       "size": 120,
       "effects": {
-        "border": true,
+        "border": false,
         "hidden": false,
         "grayscale": false
       },
@@ -29,7 +29,7 @@
     },
     "page": {
       "format": "a4",
-      "margin": 34,
+      "margin": 32,
       "options": {
         "breakLine": true,
         "pageNumbers": true
@@ -38,22 +38,22 @@
     "notes": "",
     "theme": {
       "text": "#000000",
-      "primary": "#EEC0C0",
+      "primary": "#ca8a04",
       "background": "#ffffff"
     },
     "layout": [
       [
         [
-          "summary",
-          "education",
+          "profiles",
           "experience",
-          "certifications",
           "projects",
           "references"
         ],
         [
-          "profiles",
+          "education",
           "skills",
+          "summary",
+          "certifications",
           "interests",
           "languages",
           "awards",
@@ -62,7 +62,7 @@
         ]
       ]
     ],
-    "template": "curriculum",
+    "template": "robyn",
     "typography": {
       "font": {
         "size": 13,
@@ -95,7 +95,12 @@
           "name": "Web Technologies",
           "level": 0,
           "visible": true,
-          "keywords": [],
+          "keywords": [
+            "HTML5",
+            "JavaScript",
+            "PHP",
+            "Python"
+          ],
           "description": "Advanced"
         },
         {
@@ -103,7 +108,13 @@
           "name": "Web Frameworks",
           "level": 0,
           "visible": true,
-          "keywords": [],
+          "keywords": [
+            "React.js",
+            "Angular",
+            "Vue.js",
+            "Laravel",
+            "Django"
+          ],
           "description": "Intermediate"
         },
         {
@@ -111,7 +122,13 @@
           "name": "Tools",
           "level": 0,
           "visible": true,
-          "keywords": [],
+          "keywords": [
+            "Webpack",
+            "Git",
+            "Jenkins",
+            "Docker",
+            "JIRA"
+          ],
           "description": "Intermediate"
         }
       ],
@@ -158,7 +175,34 @@
     "projects": {
       "id": "projects",
       "name": "Projects",
-      "items": [],
+      "items": [
+        {
+          "id": "yw843emozcth8s1ubi1ubvlf",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "E-Commerce Platform",
+          "summary": "<p>Led the development of a full-stack e-commerce platform, improving sales conversion by 25%.</p>",
+          "visible": true,
+          "keywords": [],
+          "description": "Project Lead"
+        },
+        {
+          "id": "ncxgdjjky54gh59iz2t1xi1v",
+          "url": {
+            "href": "",
+            "label": ""
+          },
+          "date": "",
+          "name": "Interactive Dashboard",
+          "summary": "<p>Created an interactive analytics dashboard for a SaaS application, enhancing data visualization for clients.</p>",
+          "visible": true,
+          "keywords": [],
+          "description": "Frontend Developer"
+        }
+      ],
       "columns": 1,
       "visible": true
     },
@@ -194,22 +238,7 @@
     "languages": {
       "id": "languages",
       "name": "Languages",
-      "items": [
-        {
-          "id": "xitfia845pw3rcrjymi861cd",
-          "name": "English",
-          "level": 1,
-          "visible": true,
-          "description": ""
-        },
-        {
-          "id": "rjkk5b8s08wlrdx5zgwzlm4l",
-          "name": "Spanish",
-          "level": 1,
-          "visible": true,
-          "description": ""
-        }
-      ],
+      "items": [],
       "columns": 1,
       "visible": true
     },

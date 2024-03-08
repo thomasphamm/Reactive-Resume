@@ -6,6 +6,8 @@ import { Chikorita } from "./chikorita";
 import { Ditto } from "./ditto";
 import { Gengar } from "./gengar";
 import { Glalie } from "./glalie";
+import { Robyn } from "./robyn";
+import { Bondar } from "./bondar";
 import { Kakuna } from "./kakuna";
 import { Leafish } from "./leafish";
 import { Nosepass } from "./nosepass";
@@ -42,6 +44,10 @@ export const getTemplate = (template: Template) => {
       return Rhyhorn;
     case "curriculum":
       return Curriculum;
+    case "robyn":
+      return Robyn;
+    case "bondar":
+      return Bondar;
     default:
       return Onyx;
   }

@@ -17,9 +17,6 @@ import {
   URL,
   Volunteer,
 } from "@reactive-resume/schema";
-import {
-MapPin
-} from "@phosphor-icons/react";
 import { cn, hexToRgb, isEmptyString, isUrl, linearTransform } from "@reactive-resume/utils";
 import get from "lodash.get";
 import { Fragment } from "react";
@@ -27,42 +24,91 @@ import { Fragment } from "react";
 import { Picture } from "../components/picture";
 import { useArtboardStore } from "../store/artboard";
 import { TemplateProps } from "../types/template";
-import "./../styles/curriculum.scss"
+import "./../styles/robyn.scss";
+
 const Header = () => {
   const basics = useArtboardStore((state) => state.resume.basics);
+  const profiles = useArtboardStore((state) => state.resume.sections.profiles);
+  const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
 
   return (
-    <div className="flex flex-col items-center space-y-4 text-center mb-10">
+    <div className="flex items-center gap-10 space-y-4 text-center">
       <Picture />
 
       <div className="space-y-4">
-        <div>
-          <div className="text-2xl font-bold">{basics.name}</div>
-          <div className="text-base">{basics.headline}</div>
+        <div className="flex flex-col items-start gap-y-1.5 px-3 py-4 text-left text-sm">
+          {basics.location && (
+            <div className="flex items-center gap-x-1.5">
+              <i className="ph ph-bold ph-map-pin text-primary" />
+              <div>{basics.location}</div>
+            </div>
+          )}
+          {basics.phone && (
+            <div className="flex items-center gap-x-1.5">
+              <i className="ph ph-bold ph-phone text-primary" />
+              <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
+                {basics.phone}
+              </a>
+            </div>
+          )}
+          {basics.email && (
+            <div className="flex items-center gap-x-1.5">
+              <i className="ph ph-bold ph-at text-primary" />
+              <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
+                {basics.email}
+              </a>
+            </div>
+          )}
+          <Link url={basics.url} />
+          {profiles.items.map(item => 
+            <div>
+              {isUrl(item.url.href) && (
+                <Link
+                  url={item.url}
+                  label={item.username}
+                  icon={
+                    <img
+                      className="ph"
+                      width={fontSize}
+                      height={fontSize}
+                      alt={item.network}
+                      src={`https://cdn.simpleicons.org/${item.icon}`}
+                    />
+                  }
+                />
+              ) }
+            </div>
+          )}
+          {basics.customFields.map((item) => (
+            <div key={item.id} className="flex items-center gap-x-1.5">
+              <i className={cn(`ph ph-bold ph-${item.icon} text-primary`)} />
+              <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-const Summary = () => {
-  const section = useArtboardStore((state) => state.resume.sections.summary);
+type RatingProps = { level: number };
 
-  if (!section.visible || isEmptyString(section.content)) return null;
+const Rating = ({ level }: RatingProps) => {
+  const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
   return (
-    <section id={section.id}>
-      <h4 className="mb-2 border-b pb-0.5 text-sm font-bold uppercase">About me</h4>
-
+    <div className="relative">
       <div
-        className="wysiwyg"
-        style={{ columns: section.columns }}
-        dangerouslySetInnerHTML={{ __html: section.content }}
+        className="h-2.5 w-full rounded-sm"
+        style={{ backgroundColor: hexToRgb(primaryColor, 0.4) }}
       />
-    </section>
+      <div
+        className="absolute inset-y-0 left-0 h-2.5 w-full rounded-sm bg-primary"
+        style={{ width: `${linearTransform(level, 0, 5, 0, 100)}%` }}
+      />
+    </div>
   );
 };
-
 
 type LinkProps = {
   url: URL;
@@ -112,7 +158,7 @@ const Section = <T,>({
 
   return (
     <section id={section.id} className="grid">
-      <h4 className="title-section mb-2 border-b pb-0.5 text-sm font-bold uppercase">
+      <h4 className="title-name tracking-[.25rem] mb-2 pb-0.5 text-sm font-bold uppercase">
         {section.name}
       </h4>
 
@@ -139,6 +185,8 @@ const Section = <T,>({
                   <div className="wysiwyg" dangerouslySetInnerHTML={{ __html: summary }} />
                 )}
 
+                {level !== undefined && level > 0 && <Rating level={level} />}
+
                 {keywords !== undefined && keywords.length > 0 && (
                   <p className="text-sm">{keywords.join(", ")}</p>
                 )}
@@ -149,68 +197,23 @@ const Section = <T,>({
     </section>
   );
 };
-const BaseInfo = () => {
-  const basics = useArtboardStore((state) => state.resume.basics);
-  return (
-    <div className="">
-      <h4 className="title-section mb-2 border-b pb-0.5 text-sm font-bold uppercase">
-        contact
-      </h4>
-      {basics.location && (
-        <div className="flex items-center gap-x-1.5">
-          <div className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-            <i className="ph ph-bold ph-map-pin text-primary" />
-          </div>
-          <div>{basics.location}</div>
-        </div>
-      )}
-      {basics.phone && (
-        <div className="flex items-center gap-x-1.5">
-          <div className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-            <i className="ph ph-bold ph-phone text-primary" />
-          </div>
-          <a href={`tel:${basics.phone}`} target="_blank" rel="noreferrer">
-            {basics.phone}
-          </a>
-        </div>
-      )}
-      {basics.email && (
-        <div className="flex items-center gap-x-1.5">
-          <div className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-            <i className="ph ph-bold ph-at text-primary" />
-          </div>
-          <a href={`mailto:${basics.email}`} target="_blank" rel="noreferrer">
-            {basics.email}
-          </a>
-        </div>
-      )}
-      <Link url={basics.url} />
-      {basics.customFields.map((item) => (
-        <div key={item.id} className="flex items-center gap-x-1.5">
-          {item.icon&&<div className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-            <i className={cn(`ph ph-bold ph-${item.icon} text-primary`)} />
-          </div>}
-          <span>{[item.name, item.value].filter(Boolean).join(": ")}</span>
-        </div>
-      ))}
-    </div>
-  )
-}
+
 const Experience = () => {
   const section = useArtboardStore((state) => state.resume.sections.experience);
 
   return (
     <Section<Experience> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
-        <div className="flex items-start justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-          <div className="text-left">
-            <div className="font-bold">{item.company}</div>
-            <div>{item.position}</div>
-          </div>
+        <div className="group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+          <div className="font-bold">{item.position}</div>
+          <div className="flex items-start justify-between">
+            <div className="text-left">
+              <div>{item.company},{item.location}</div>
+            </div>
+            <div className="shrink-0 text-right">
+              <div>{item.date}</div>
+            </div>
 
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
-            <div>{item.location}</div>
           </div>
         </div>
       )}
@@ -224,17 +227,12 @@ const Education = () => {
   return (
     <Section<Education> section={section} urlKey="url" summaryKey="summary">
       {(item) => (
-        <div className="flex items-start justify-between group-[.sidebar]:flex-col group-[.sidebar]:items-start">
-          <div className="text-left">
-            <div className="font-bold">{item.institution}</div>
+        <div className="group-[.sidebar]:flex-col group-[.sidebar]:items-start">
+            <div className="font-bold">{item.studyType}</div>
+            <div>{item.institution}</div>
+            <div>{item.date}</div>
             <div>{item.area}</div>
             <div>{item.score}</div>
-          </div>
-
-          <div className="shrink-0 text-right">
-            <div className="font-bold">{item.date}</div>
-            <div>{item.studyType}</div>
-          </div>
         </div>
       )}
     </Section>
@@ -242,33 +240,20 @@ const Education = () => {
 };
 
 const Profiles = () => {
-  const section = useArtboardStore((state) => state.resume.sections.profiles);
-  const fontSize = useArtboardStore((state) => state.resume.metadata.typography.font.size);
+  const section = useArtboardStore((state) => state.resume.sections.summary);
+
+  if (!section.visible || isEmptyString(section.content)) return null;
 
   return (
-    <Section<Profile> section={section}>
-      {(item) => (
-        <div>
-          {isUrl(item.url.href) ? (
-            <Link
-              url={item.url}
-              label={item.network}
-              icon={
-                <img
-                  className="ph"
-                  width={fontSize}
-                  height={fontSize}
-                  alt={item.network}
-                  src={`https://cdn.simpleicons.org/${item.icon}`}
-                />
-              }
-            />
-          ) : (
-            <p>{item.username}</p>
-          )}
-        </div>
-      )}
-    </Section>
+    <section id={section.id}>
+      <h4 className="mb-2 border-b pb-0.5 text-sm font-bold uppercase">PROFILE</h4>
+
+      <div
+        className="wysiwyg"
+        style={{ columns: section.columns }}
+        dangerouslySetInnerHTML={{ __html: section.content }}
+      />
+    </section>
   );
 };
 
@@ -318,9 +303,11 @@ const Skills = () => {
   const section = useArtboardStore((state) => state.resume.sections.skills);
 
   return (
-    <Section<Skill> section={section} levelKey="level" keywordsKey="keywords">
+    <Section<Skill> section={section}>
       {(item) => (
-        <div>{item.name}</div>
+        <ul className="list-disc">
+          <li className="">{item.name}</li>
+        </ul>
       )}
     </Section>
   );
@@ -330,8 +317,12 @@ const Interests = () => {
   const section = useArtboardStore((state) => state.resume.sections.interests);
 
   return (
-    <Section<Interest> section={section} keywordsKey="keywords" className="space-y-0.5">
-      {(item) => <div className="">{item.name}</div>}
+    <Section<Interest> section={section} className="space-y-0.5">
+      {(item) => (
+        <ul className="list-disc">
+          <li className="">{item.name}</li>
+        </ul>
+      )}
     </Section>
   );
 };
@@ -383,11 +374,11 @@ const Languages = () => {
   const section = useArtboardStore((state) => state.resume.sections.languages);
 
   return (
-    <Section<Language> section={section} levelKey="level">
+    <Section<Language> section={section}>
       {(item) => (
-        <div className="space-y-0.5">
-          <div className="">{item.name}</div>
-        </div>
+        <ul className="list-disc">
+          <li className="">{item.name}</li>
+        </ul>
       )}
     </Section>
   );
@@ -460,8 +451,6 @@ const mapSectionToComponent = (section: SectionKey) => {
   switch (section) {
     case "profiles":
       return <Profiles />;
-    case "summary":
-      return <Summary />;
     case "experience":
       return <Experience />;
     case "education":
@@ -491,30 +480,38 @@ const mapSectionToComponent = (section: SectionKey) => {
   }
 };
 
-export const Curriculum = ({ columns, isFirstPage = false }: TemplateProps) => {
+export const Robyn = ({ columns, isFirstPage = false }: TemplateProps) => {
   const [main, sidebar] = columns;
-
+  const basics = useArtboardStore((state) => state.resume.basics);
   const primaryColor = useArtboardStore((state) => state.resume.metadata.theme.primary);
 
   return (
     <div className="grid min-h-[inherit] grid-cols-3">
       <div
-        className="sidebar p-custom group  flex flex-col pb-0"
+        className="sidebar p-custom group space-y-4 flex flex-col gap-6 pt-20"
+        style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}
       >
-        {isFirstPage && <Header />}
-        <div className="flex justify-end flex-1">
-          <div className="flex flex-col h-full gap-[20px] w-[176px] relative" style={{ backgroundColor: hexToRgb(primaryColor, 0.2) }}>
-            <div className="curriculum-templates-sidebar flex flex-col gap-[20px] absolute top-[-10px] bottom-0 right-0 left-0 px-4">
-              <BaseInfo/>
-              {sidebar.map((section) => (
-                <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
-              ))}
+        <div className="">
+          {basics.name && <div className="font-bold text-3xl pb-3">{basics.name}</div>}
+          {basics.headline && <div className="flex gap-x-1.5 pb-2">
+            <div className="w-6 h-3 bg-[#D67215] mt-2"></div>
+            <div>{basics.headline}</div>
+            </div>}
+          {basics.location && (
+            <div className="flex gap-x-1.5">
+              <i className="ph ph-bold ph-map-pin text-primary mt-2" />
+              <div>{basics.location}</div>
             </div>
-          </div>
+          )}
+
         </div>
+        {sidebar.map((section) => (
+          <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
+        ))}
       </div>
 
       <div className="main p-custom group col-span-2 space-y-4">
+        {isFirstPage && <Header />}
         {main.map((section) => (
           <Fragment key={section}>{mapSectionToComponent(section)}</Fragment>
         ))}
